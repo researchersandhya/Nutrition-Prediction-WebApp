@@ -3,9 +3,21 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import requests
+
+# Function to download the model from Google Drive
+def download_model():
+    file_id = '1uLPt0uilJmyuDNfEgcKUi7H8jDO1bFGp'  # Replace with your actual file ID
+    url = f'https://drive.google.com/file/d/1uLPt0uilJmyuDNfEgcKUi7H8jDO1bFGp/view?usp=sharing'
+    response = requests.get(url)
+    with open("trained_nutrition_model.keras", "wb") as file:
+        file.write(response.content)
 
 # Load nutrition data
 df = pd.read_csv('nutrition.csv')
+
+# Download the model
+download_model()
 
 # Load TensorFlow model
 def model_prediction(test_image):
@@ -17,33 +29,33 @@ def model_prediction(test_image):
     return np.argmax(predictions)  # Return index of max element
 
 # Inject custom CSS for better visuals
-st.markdown("""
-    <style>
-    body {
-        background-color: #f3f4f6;
-    }
-    .header {
-        color: #ff6347;
-        font-family: 'Helvetica Neue', sans-serif;
-        text-align: center;
-        font-size: 3em;
-        font-weight: bold;
-        padding: 0.5em;
-    }
-    .main-content {
-        font-family: 'Arial', sans-serif;
-        margin: 20px;
-        padding: 20px;
-    }
-    .nutrition-facts {
-        font-size: 1.2em;
-        color: #2e2e2e;
-        line-height: 1.6;
-    }
-    .nutrition-facts strong {
-        font-weight: bold;
-    }
-    </style>
+st.markdown(""" 
+    <style> 
+    body { 
+        background-color: #f3f4f6; 
+    } 
+    .header { 
+        color: #ff6347; 
+        font-family: 'Helvetica Neue', sans-serif; 
+        text-align: center; 
+        font-size: 3em; 
+        font-weight: bold; 
+        padding: 0.5em; 
+    } 
+    .main-content { 
+        font-family: 'Arial', sans-serif; 
+        margin: 20px; 
+        padding: 20px; 
+    } 
+    .nutrition-facts { 
+        font-size: 1.2em; 
+        color: #2e2e2e; 
+        line-height: 1.6; 
+    } 
+    .nutrition-facts strong { 
+        font-weight: bold; 
+    } 
+    </style> 
     """, unsafe_allow_html=True)
 
 # Sidebar
