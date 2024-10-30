@@ -3,15 +3,14 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import requests
+import gdown  # Install this package if you haven't
 
 # Function to download the model from Google Drive
 def download_model():
-    file_id = '1uLPt0uilJmyuDNfEgcKUi7H8jDO1bFGp'  # Replace with your actual file ID
+    file_id = '1uLPt0uilJmyuDNfEgcKUi7H8jDO1bFGp'  # Your Google Drive file ID
     url = f'https://drive.google.com/uc?id={file_id}'
-    response = requests.get(url)
-    with open("trained_nutrition_model.keras", "wb") as file:
-        file.write(response.content)
+    output = 'trained_nutrition_model.keras'
+    gdown.download(url, output, quiet=False)
 
 # Load nutrition data
 df = pd.read_csv('nutrition.csv')
