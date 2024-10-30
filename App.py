@@ -8,7 +8,7 @@ import requests
 # Function to download the model from Google Drive
 def download_model():
     file_id = '1uLPt0uilJmyuDNfEgcKUi7H8jDO1bFGp'  # Replace with your actual file ID
-    url = f'https://drive.google.com/file/d/1uLPt0uilJmyuDNfEgcKUi7H8jDO1bFGp/view?usp=sharing'
+    url = f'https://drive.google.com/uc?id={file_id}'
     response = requests.get(url)
     with open("trained_nutrition_model.keras", "wb") as file:
         file.write(response.content)
